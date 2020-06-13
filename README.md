@@ -4,6 +4,7 @@ During the summer of 2020, I worked as an Undergraduate Research Fellow at the B
 
 The following are projects I coded myself that aided the research:
 
+
 ## Project I
   Project I explored the thermodynamic properties of DNA nanostars based on the nearest-neighbor (NN) model for nucleic acids.
     <li>StickyEndThermodynamics.py takes in the sequence and transition temperature to output ∆G.
