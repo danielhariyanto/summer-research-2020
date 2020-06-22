@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def main():
     sequence = ['GC','GCGC','GCTAGC','GCTCGAGC']
 
-    StickyEnd = [2,4,6,8]
+    StickyEnd = [8,6,4,2]
     temperature = np.arange(20,80,0.1).tolist()
 
     GValues = []
@@ -18,21 +18,31 @@ def main():
     HValues = [calculateH(sequence[0]),calculateH(sequence[1]),calculateH(sequence[2]),calculateH(sequence[3])]
     SValues = [calculateS(sequence[0]),calculateS(sequence[1]),calculateS(sequence[2]),calculateS(sequence[3])]
 
+    GValuesStickyNucleotides = []
+    for g in range(len(GValues)):
+        GValueStickyNucleotides = []
+        for h in GValues[g]:
+            GValueStickyNucleotides.append(h*StickyEnd[g])
+        GValuesStickyNucleotides.append(GValueStickyNucleotides)
+
 
     """----------------------------ΔG----------------------------"""
     """Estimated ΔG values for corresponding transition temperatures"""
     TvsG(GValues,temperature)
 
     """Estimated transition temperatures for corresponding ΔG values"""
-    GvsT(GValues,temperature)
+    #GvsT(GValues,temperature)
+
+    """Estimated ΔG values of sticky nucleotides for corresponding transition temperatures"""
+    TvsGwithStickyNucleotides(GValuesStickyNucleotides,temperature)
 
     """----------------------------ΔH----------------------------"""
     """Estimated ΔH values for corresponding # of sticky ends"""
-    StickyEndvsH(HValues,sequence)
+    #StickyEndvsH(HValues,sequence)
 
     """----------------------------ΔS----------------------------"""
     """Estimated ΔS values for corresponding # of sticky ends"""
-    StickyEndvsS(SValues,sequence)
+    #StickyEndvsS(SValues,sequence)
 
 
 """Calculation Methods"""
@@ -170,6 +180,19 @@ def GvsT(GValues,temperature):
     plt.xlabel("ΔG (kcal/mol)")
     plt.ylabel("Temperature (°C)",)
     plt.title("Estimated transition temperatures for corresponding ΔG values")
+    plt.legend(title='# of sticky ends')
+
+    plt.show()
+
+def TvsGwithStickyNucleotides(GValues,temperature):
+    plt.plot(temperature,GValues[0],label='2',color='khaki',marker='o',markersize=1)
+    plt.plot(temperature,GValues[1],label='4',color='gold',marker='o',markersize=1)
+    plt.plot(temperature,GValues[2],label='6',color='goldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[3],label='8',color='darkgoldenrod',marker='o',markersize=1)
+
+    plt.xlabel("Temperature (°C)")
+    plt.ylabel("ΔG (kcal/mol)")
+    plt.title("Estimated ΔG values of sticky nucleotides for corresponding transition temperatures")
     plt.legend(title='# of sticky ends')
 
     plt.show()
