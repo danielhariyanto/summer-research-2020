@@ -26,7 +26,7 @@ def main():
 
     """----------------------------ΔG----------------------------"""
     """Estimated ΔG values for corresponding transition temperatures"""
-    #TvsG(GValues,temperature)
+    TvsG(GValues,temperature)
 
     """Estimated ΔG values for corresponding transition temperatures with Takinoue's (2020) data"""
     #TvsGwithTakinoueG(GValues,temperature,TakinoueG,TakinoueT)
@@ -175,11 +175,11 @@ def findS(bases):
 
 """Graphs with ΔG"""
 def TvsG(GValues,temperature):
-    plt.plot(temperature,GValues[0],label='12',color='darkgoldenrod',marker='o',markersize=1)
-    plt.plot(temperature,GValues[1],label='10',color='goldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[0],label='4',color='lemonchiffon',marker='o',markersize=1)
+    plt.plot(temperature,GValues[1],label='6',color='khaki',marker='o',markersize=1)
     plt.plot(temperature,GValues[2],label='8',color='gold',marker='o',markersize=1)
-    plt.plot(temperature,GValues[3],label='6',color='khaki',marker='o',markersize=1)
-    plt.plot(temperature,GValues[4],label='4',color='lemonchiffon',marker='o',markersize=1)
+    plt.plot(temperature,GValues[3],label='10',color='goldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[4],label='12',color='darkgoldenrod',marker='o',markersize=1)
 
     plt.xlabel("Temperature (°C)")
     plt.ylabel("ΔG (kcal/mol)")
@@ -189,11 +189,11 @@ def TvsG(GValues,temperature):
     plt.show()
 
 def TvsGwithTakinoueG(GValues,temperature,TakinoueG,TakinoueT):
-    plt.plot(temperature,GValues[0],label='12',color='darkgoldenrod',marker='o',markersize=1)
-    plt.plot(temperature,GValues[1],label='10',color='goldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[0],label='4',color='lemonchiffon',marker='o',markersize=1)
+    plt.plot(temperature,GValues[1],label='6',color='khaki',marker='o',markersize=1)
     plt.plot(temperature,GValues[2],label='8',color='gold',marker='o',markersize=1)
-    plt.plot(temperature,GValues[3],label='6',color='khaki',marker='o',markersize=1)
-    plt.plot(temperature,GValues[4],label='4',color='lemonchiffon',marker='o',markersize=1)
+    plt.plot(temperature,GValues[3],label='10',color='goldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[4],label='12',color='darkgoldenrod',marker='o',markersize=1)
     plt.plot(TakinoueT,TakinoueG,color='orange',marker='o',markersize=5,linestyle='None')
 
     plt.xlabel("Temperature (°C)")
@@ -204,11 +204,11 @@ def TvsGwithTakinoueG(GValues,temperature,TakinoueG,TakinoueT):
     plt.show()
 
 def GvsT(GValues,temperature):
-    plt.plot(GValues[0],temperature,label='12',color='darkgoldenrod',marker='o',markersize=1)
-    plt.plot(GValues[1],temperature,label='10',color='goldenrod',marker='o',markersize=1)
+    plt.plot(GValues[0],temperature,label='4',color='lemonchiffon',marker='o',markersize=1)
+    plt.plot(GValues[1],temperature,label='6',color='khaki',marker='o',markersize=1)
     plt.plot(GValues[2],temperature,label='8',color='gold',marker='o',markersize=1)
-    plt.plot(GValues[3],temperature,label='6',color='khaki',marker='o',markersize=1)
-    plt.plot(GValues[4],temperature,label='4',color='lemonchiffon',marker='o',markersize=1)
+    plt.plot(GValues[3],temperature,label='10',color='goldenrod',marker='o',markersize=1)
+    plt.plot(GValues[4],temperature,label='12',color='darkgoldenrod',marker='o',markersize=1)
 
     plt.xlabel("ΔG (kcal/mol)")
     plt.ylabel("Temperature (°C)",)
@@ -218,11 +218,11 @@ def GvsT(GValues,temperature):
     plt.show()
 
 def GvsTwithTakinoueG(GValues,temperature,TakinoueG,TakinoueT):
-    plt.plot(GValues[0],temperature,label='12',color='darkgoldenrod',marker='o',markersize=1)
-    plt.plot(GValues[1],temperature,label='10',color='goldenrod',marker='o',markersize=1)
+    plt.plot(GValues[0],temperature,label='4',color='lemonchiffon',marker='o',markersize=1)
+    plt.plot(GValues[1],temperature,label='6',color='khaki',marker='o',markersize=1)
     plt.plot(GValues[2],temperature,label='8',color='gold',marker='o',markersize=1)
-    plt.plot(GValues[3],temperature,label='6',color='khaki',marker='o',markersize=1)
-    plt.plot(GValues[4],temperature,label='4',color='lemonchiffon',marker='o',markersize=1)
+    plt.plot(GValues[3],temperature,label='10',color='goldenrod',marker='o',markersize=1)
+    plt.plot(GValues[4],temperature,label='12',color='darkgoldenrod',marker='o',markersize=1)
     plt.plot(TakinoueG,TakinoueT,color='orange',marker='o',markersize=5,linestyle='None')
 
     plt.xlabel("ΔG (kcal/mol)")
