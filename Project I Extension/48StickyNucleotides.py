@@ -3,11 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def main():
-    sequence = ['GC','GCGC','GCTAGC','GCTCGAGC']
+    sequence = ['GC','GCGC','GCTAGC','GCTCGAGC','','']
 
     temperature = np.arange(20,80,0.1).tolist()
 
-    Arms = [12,6,4,3]
+    Arms = [24,12,8,6,4,3]
 
     GValues = []
     for s in sequence:
@@ -16,8 +16,8 @@ def main():
             GValue.append(calculateG(s,t))
         GValues.append(GValue)
 
-    HValues = [calculateH(sequence[0]),calculateH(sequence[1]),calculateH(sequence[2]),calculateH(sequence[3])]
-    SValues = [calculateS(sequence[0]),calculateS(sequence[1]),calculateS(sequence[2]),calculateS(sequence[3])]
+    HValues = [calculateH(sequence[0]),calculateH(sequence[1]),calculateH(sequence[2]),calculateH(sequence[3]),calculateH(sequence[4]),calculateH(sequence[5])]
+    SValues = [calculateS(sequence[0]),calculateS(sequence[1]),calculateS(sequence[2]),calculateS(sequence[3]),calculateH(sequence[4]),calculateH(sequence[5])]
 
     GValuesStickyNucleotides = []
     for g in range(len(GValues)):
@@ -37,23 +37,23 @@ def main():
 
     """----------------------------ΔG----------------------------"""
     """Estimated ΔG values for corresponding transition temperatures"""
-    #TvsG(GValues,temperature)
+    TvsG(GValues,temperature)
 
     """Estimated transition temperatures for corresponding ΔG values"""
     #GvsT(GValues,temperature)
 
     """Estimated ΔG values of sticky nucleotides for corresponding transition temperatures"""
-    #TvsGwithStickyNucleotides(GValuesStickyNucleotides,temperature)
+    TvsGwithStickyNucleotides(GValuesStickyNucleotides,temperature)
 
     """----------------------------ΔH----------------------------"""
     """Estimated ΔH values for corresponding # of sticky ends"""
-    #StickyEndvsH(HValues,sequence)
-    #HwithStickyNucleotides(HValuesStickyNucleotides,sequence)
+    StickyEndvsH(HValues,sequence)
+    HwithStickyNucleotides(HValuesStickyNucleotides,sequence)
 
     """----------------------------ΔS----------------------------"""
     """Estimated ΔS values for corresponding # of sticky ends"""
-    #StickyEndvsS(SValues,sequence)
-    #SwithStickyNucleotides(SValuesStickyNucleotides,sequence)
+    StickyEndvsS(SValues,sequence)
+    SwithStickyNucleotides(SValuesStickyNucleotides,sequence)
 
 
 """Calculation Methods"""
@@ -170,10 +170,12 @@ def findS(bases):
 
 """Graphs with ΔG"""
 def TvsG(GValues,temperature):
-    plt.plot(temperature,GValues[0],label='2 SE + 12 arms',color='khaki',marker='o',markersize=1)
-    plt.plot(temperature,GValues[1],label='4 SE + 6 arms',color='gold',marker='o',markersize=1)
-    plt.plot(temperature,GValues[2],label='6 SE + 4 arms',color='goldenrod',marker='o',markersize=1)
-    plt.plot(temperature,GValues[3],label='8 SE + 3 arms',color='darkgoldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[0],label='2 SE + 24 arms',color='khaki',marker='o',markersize=1)
+    plt.plot(temperature,GValues[1],label='4 SE + 12 arms',color='gold',marker='o',markersize=1)
+    plt.plot(temperature,GValues[2],label='6 SE + 8 arms',color='goldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[3],label='8 SE + 6 arms',color='darkgoldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[4],label='12 SE + 4 arms',color='saddlebrown',marker='o',markersize=1)
+    plt.plot(temperature,GValues[5],label='16 SE + 3 arms',color='brown',marker='o',markersize=1)
 
     plt.xlabel("Temperature (°C)")
     plt.ylabel("ΔG (kcal/mol)")
@@ -183,10 +185,12 @@ def TvsG(GValues,temperature):
     plt.show()
 
 def GvsT(GValues,temperature):
-    plt.plot(GValues[0],temperature,label='2 SE + 12 arms',color='khaki',marker='o',markersize=1)
-    plt.plot(GValues[1],temperature,label='4 SE + 6 arms',color='gold',marker='o',markersize=1)
-    plt.plot(GValues[2],temperature,label='6 SE + 4 arms',color='goldenrod',marker='o',markersize=1)
-    plt.plot(GValues[3],temperature,label='8 SE + 3 arms',color='darkgoldenrod',marker='o',markersize=1)
+    plt.plot(GValues[0],temperature,label='2 SE + 24 arms',color='khaki',marker='o',markersize=1)
+    plt.plot(GValues[1],temperature,label='4 SE + 12 arms',color='gold',marker='o',markersize=1)
+    plt.plot(GValues[2],temperature,label='6 SE + 8 arms',color='goldenrod',marker='o',markersize=1)
+    plt.plot(GValues[3],temperature,label='8 SE + 6 arms',color='darkgoldenrod',marker='o',markersize=1)
+    plt.plot(GValues[4],temperature,label='12 SE + 4 arms',color='saddlebrown',marker='o',markersize=1)
+    plt.plot(GValues[5],temperature,label='16 SE + 3 arms',color='brown',marker='o',markersize=1)
 
     plt.xlabel("ΔG (kcal/mol)")
     plt.ylabel("Temperature (°C)",)
@@ -196,10 +200,12 @@ def GvsT(GValues,temperature):
     plt.show()
 
 def TvsGwithStickyNucleotides(GValues,temperature):
-    plt.plot(temperature,GValues[0],label='2 SE + 12 arms',color='khaki',marker='o',markersize=1)
-    plt.plot(temperature,GValues[1],label='4 SE + 6 arms',color='gold',marker='o',markersize=1)
-    plt.plot(temperature,GValues[2],label='6 SE + 4 arms',color='goldenrod',marker='o',markersize=1)
-    plt.plot(temperature,GValues[3],label='8 SE + 3 arms',color='darkgoldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[0],label='2 SE + 24 arms',color='khaki',marker='o',markersize=1)
+    plt.plot(temperature,GValues[1],label='4 SE + 12 arms',color='gold',marker='o',markersize=1)
+    plt.plot(temperature,GValues[2],label='6 SE + 8 arms',color='goldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[3],label='8 SE + 6 arms',color='darkgoldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[4],label='12 SE + 4 arms',color='saddlebrown',marker='o',markersize=1)
+    plt.plot(temperature,GValues[5],label='16 SE + 3 arms',color='brown',marker='o',markersize=1)
 
     plt.xlabel("Temperature (°C)")
     plt.ylabel("ΔG (kcal/mol)")

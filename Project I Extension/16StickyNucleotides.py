@@ -43,7 +43,7 @@ def main():
     #GvsT(GValues,temperature)
 
     """Estimated ΔG values of sticky nucleotides for corresponding transition temperatures"""
-    TvsGwithStickyNucleotides(GValuesStickyNucleotides,temperature)
+    #TvsGwithStickyNucleotides(GValuesStickyNucleotides,temperature)
 
     """----------------------------ΔH----------------------------"""
     """Estimated ΔH values for corresponding # of sticky ends"""
