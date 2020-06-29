@@ -3,10 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def main():
-    sequence = ['GC','GCGC','GCTAGC','GCTCGAGC']
+    sequence = ['GC','GCGC']
 
-    StickyEnd = [8,6,4,2]
     temperature = np.arange(20,80,0.1).tolist()
+
+    Arms = [8,4]
 
     GValues = []
     for s in sequence:
@@ -15,20 +16,28 @@ def main():
             GValue.append(calculateG(s,t))
         GValues.append(GValue)
 
-    HValues = [calculateH(sequence[0]),calculateH(sequence[1]),calculateH(sequence[2]),calculateH(sequence[3])]
-    SValues = [calculateS(sequence[0]),calculateS(sequence[1]),calculateS(sequence[2]),calculateS(sequence[3])]
+    HValues = [calculateH(sequence[0]),calculateH(sequence[1])]
+    SValues = [calculateS(sequence[0]),calculateS(sequence[1])]
 
     GValuesStickyNucleotides = []
     for g in range(len(GValues)):
         GValueStickyNucleotides = []
         for h in GValues[g]:
-            GValueStickyNucleotides.append(h*StickyEnd[g])
+            GValueStickyNucleotides.append(h*Arms[g])
         GValuesStickyNucleotides.append(GValueStickyNucleotides)
+
+    HValuesStickyNucleotides = []
+    for h in range(len(HValues)):
+        HValuesStickyNucleotides.append(HValues[h]*Arms[h])
+
+    SValuesStickyNucleotides = []
+    for s in range(len(SValues)):
+        SValuesStickyNucleotides.append(SValues[s]*Arms[s])
 
 
     """----------------------------ΔG----------------------------"""
     """Estimated ΔG values for corresponding transition temperatures"""
-    TvsG(GValues,temperature)
+    #TvsG(GValues,temperature)
 
     """Estimated transition temperatures for corresponding ΔG values"""
     #GvsT(GValues,temperature)
@@ -39,10 +48,12 @@ def main():
     """----------------------------ΔH----------------------------"""
     """Estimated ΔH values for corresponding # of sticky ends"""
     #StickyEndvsH(HValues,sequence)
+    #HwithStickyNucleotides(HValuesStickyNucleotides,sequence)
 
     """----------------------------ΔS----------------------------"""
     """Estimated ΔS values for corresponding # of sticky ends"""
     #StickyEndvsS(SValues,sequence)
+    #SwithStickyNucleotides(SValuesStickyNucleotides,sequence)
 
 
 """Calculation Methods"""
@@ -159,10 +170,8 @@ def findS(bases):
 
 """Graphs with ΔG"""
 def TvsG(GValues,temperature):
-    plt.plot(temperature,GValues[0],label='2',color='khaki',marker='o',markersize=1)
-    plt.plot(temperature,GValues[1],label='4',color='gold',marker='o',markersize=1)
-    plt.plot(temperature,GValues[2],label='6',color='goldenrod',marker='o',markersize=1)
-    plt.plot(temperature,GValues[3],label='8',color='darkgoldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[0],label='2 SE + 8 arms',color='gold',marker='o',markersize=1)
+    plt.plot(temperature,GValues[1],label='4 SE + 4 arms',color='goldenrod',marker='o',markersize=1)
 
     plt.xlabel("Temperature (°C)")
     plt.ylabel("ΔG (kcal/mol)")
@@ -172,10 +181,8 @@ def TvsG(GValues,temperature):
     plt.show()
 
 def GvsT(GValues,temperature):
-    plt.plot(GValues[0],temperature,label='2',color='khaki',marker='o',markersize=1)
-    plt.plot(GValues[1],temperature,label='4',color='gold',marker='o',markersize=1)
-    plt.plot(GValues[2],temperature,label='6',color='goldenrod',marker='o',markersize=1)
-    plt.plot(GValues[3],temperature,label='8',color='darkgoldenrod',marker='o',markersize=1)
+    plt.plot(GValues[0],temperature,label='2 SE + 8 arms',color='gold',marker='o',markersize=1)
+    plt.plot(GValues[1],temperature,label='4 SE + 4 arms',color='goldenrod',marker='o',markersize=1)
 
     plt.xlabel("ΔG (kcal/mol)")
     plt.ylabel("Temperature (°C)",)
@@ -185,46 +192,74 @@ def GvsT(GValues,temperature):
     plt.show()
 
 def TvsGwithStickyNucleotides(GValues,temperature):
-    plt.plot(temperature,GValues[0],label='2',color='khaki',marker='o',markersize=1)
-    plt.plot(temperature,GValues[1],label='4',color='gold',marker='o',markersize=1)
-    plt.plot(temperature,GValues[2],label='6',color='goldenrod',marker='o',markersize=1)
-    plt.plot(temperature,GValues[3],label='8',color='darkgoldenrod',marker='o',markersize=1)
+    plt.plot(temperature,GValues[0],label='2 SE + 8 arms',color='gold',marker='o',markersize=1)
+    plt.plot(temperature,GValues[1],label='4 SE + 4 arms',color='goldenrod',marker='o',markersize=1)
 
     plt.xlabel("Temperature (°C)")
     plt.ylabel("ΔG (kcal/mol)")
     plt.title("Estimated ΔG values of sticky nucleotides for corresponding transition temperatures")
-    plt.legend(title='# of sticky ends')
+    plt.legend(title='# of sticky ends + # of arms')
 
     plt.show()
 
 
 """Graphs with ΔH"""
 def StickyEndvsH(HValues,sequence):
-	stickyEnds = []
-	for i in sequence:
-		stickyEnds.append(len(i))
+    stickyEnds = []
+    for i in sequence:
+    	stickyEnds.append(len(i))
 
-	plt.plot(stickyEnds,HValues,label="NN model",color='blue',marker='o',markersize=5,linestyle="None")
+    plt.plot(stickyEnds,HValues,label="NN model",color='blue',marker='o',markersize=5,linestyle="None")
 
-	plt.xlabel("# of sticky ends")
-	plt.ylabel("ΔH (kcal/mol)")
-	plt.title("Estimated ΔH values for corresponding # of sticky ends")
+    plt.xlabel("# of sticky ends")
+    plt.xticks(np.arange(min(stickyEnds),max(stickyEnds)+1,2.0))
+    plt.ylabel("ΔH (kcal/mol)")
+    plt.title("Estimated ΔH values for corresponding # of sticky ends")
 
-	plt.show()
+    plt.show()
+
+def HwithStickyNucleotides(HValues,sequence):
+    stickyEnds = []
+    for i in sequence:
+    	stickyEnds.append(len(i))
+
+    plt.plot(stickyEnds,HValues,label="NN model",color='blue',marker='o',markersize=5,linestyle="None")
+
+    plt.xlabel("# of sticky ends")
+    plt.xticks(np.arange(min(stickyEnds),max(stickyEnds)+1,2.0))
+    plt.ylabel("ΔH (kcal/mol)")
+    plt.title("Estimated ΔH values for corresponding # of sticky ends taking # of arms into account")
+
+    plt.show()
 
 """Graphs with ΔS"""
 def StickyEndvsS(SValues,sequence):
-	stickyEnds = []
-	for i in sequence:
-		stickyEnds.append(len(i))
+    stickyEnds = []
+    for i in sequence:
+    	stickyEnds.append(len(i))
 
-	plt.plot(stickyEnds,SValues,label="NN model",color='springgreen',marker='o',markersize=5,linestyle="None")
+    plt.plot(stickyEnds,SValues,label="NN model",color='springgreen',marker='o',markersize=5,linestyle="None")
 
-	plt.xlabel("# of sticky ends")
-	plt.ylabel("ΔS (cal mol-1 K-1)")
-	plt.title("Estimated ΔS values for # of sticky ends")
+    plt.xlabel("# of sticky ends")
+    plt.xticks(np.arange(min(stickyEnds),max(stickyEnds)+1,2.0))
+    plt.ylabel("ΔS (cal mol-1 K-1)")
+    plt.title("Estimated ΔS values for # of sticky ends")
 
-	plt.show()
+    plt.show()
+
+def SwithStickyNucleotides(SValues,sequence):
+    stickyEnds = []
+    for i in sequence:
+    	stickyEnds.append(len(i))
+
+    plt.plot(stickyEnds,SValues,label="NN model",color='springgreen',marker='o',markersize=5,linestyle="None")
+
+    plt.xlabel("# of sticky ends")
+    plt.xticks(np.arange(min(stickyEnds),max(stickyEnds)+1,2.0))
+    plt.ylabel("ΔS (cal mol-1 K-1)")
+    plt.title("Estimated ΔS values for corresponding # of sticky ends taking # of arms into account")
+
+    plt.show()
 
 
 main()
