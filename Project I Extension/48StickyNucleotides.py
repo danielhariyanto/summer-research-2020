@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def main():
-    sequence = ['GC','GCGC','GCTAGC','GCTCGAGC','','']
+    sequence = ['GC','GCGC','GCTAGC','GCTCGAGC','GCTCAATTGAGC','GCTCAACGGCTTGAGC']
 
     temperature = np.arange(20,80,0.1).tolist()
 
@@ -17,7 +17,7 @@ def main():
         GValues.append(GValue)
 
     HValues = [calculateH(sequence[0]),calculateH(sequence[1]),calculateH(sequence[2]),calculateH(sequence[3]),calculateH(sequence[4]),calculateH(sequence[5])]
-    SValues = [calculateS(sequence[0]),calculateS(sequence[1]),calculateS(sequence[2]),calculateS(sequence[3]),calculateH(sequence[4]),calculateH(sequence[5])]
+    SValues = [calculateS(sequence[0]),calculateS(sequence[1]),calculateS(sequence[2]),calculateS(sequence[3]),calculateS(sequence[4]),calculateS(sequence[5])]
 
     GValuesStickyNucleotides = []
     for g in range(len(GValues)):
