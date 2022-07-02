@@ -17,3 +17,6 @@ Project II complements Project I by specifically investigating bond probability 
 
 ## Project III
 Project III checks the viability of a designed DNA strand and its base pairing interactions using Sequence Symmetry Minimization, which is extremely useful for labs that artificially design double-stranded DNA using software such as NUPACK. <b>SequenceSymmetryMinimization.py</b> takes in the sequence and outputs its viability.
+
+## Project IV
+Project IV is conducts particle-tracking in my sample, used to measure displacement. This is a usual tool to measure phenomena like Brownian motion. <b>ParticleTracking.ipynb</b> shows the step-by-step procedure of measuring particle displacement from a folder of images.
